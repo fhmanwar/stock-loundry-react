@@ -168,7 +168,8 @@ function doPost(e) {
              </div>
              <div>
                <h4 className={`font-bold text-sm ${textPrimary}`}>Apps Script Bridge</h4>
-               <p className="text-[10px] text-slate-500">Salin skrip ini ke menu Extensions > Apps Script di Spreadsheet Anda.</p>
+               {/* <p className="text-[10px] text-slate-500">Salin skrip ini ke menu Extensions > Apps Script di Spreadsheet Anda.</p> */}
+               <p className="text-[10px] text-slate-500">Salin skrip ini ke menu Extensions Apps Script di Spreadsheet Anda.</p>
              </div>
           </div>
           <div className="flex space-x-2 mt-4 md:mt-0">
