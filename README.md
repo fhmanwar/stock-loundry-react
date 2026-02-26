@@ -6,7 +6,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1M3vxa1VcWvE_8W6GvrjAqC6oIe67K7in
+View your app in AI Studio: https://ai.studio/apps/drive/1SAOM5UE-1TSGmfIv5tJiWq5_Ev0rSTuy
 
 ## Run Locally
 
@@ -18,3 +18,13 @@ View your app in AI Studio: https://ai.studio/apps/drive/1M3vxa1VcWvE_8W6GvrjAqC
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Deployment (Netlify / Vercel)
+
+1. **Build the app:**
+   `npm run build`
+2. **Deploy the `dist` folder:**
+   - If using **Netlify Drag & Drop**: Upload **ONLY** the contents of the `dist` folder.
+   - If using **GitHub Integration**: Set the build command to `npm run build` and the publish directory to `dist`.
+
+**Note:** Configuration files (`netlify.toml`, `_redirects`) are already included to handle routing and prevent 404 errors.

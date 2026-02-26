@@ -1,61 +1,57 @@
 
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  LEADER = 'LEADER',
-  STAFF = 'STAFF'
-}
-
-export interface User {
-  id: string;
+export interface StockItem {
+  id: string; // ID unik untuk entri stok spesifik (per lokasi)
+  productId: string; // ID unik untuk master produk (berbagi data)
   name: string;
-  username: string;
-  password: string;
-  role: UserRole;
-  email: string;
-}
-
-export type UsageType = 'SINGLE_USE' | 'REUSABLE';
-export type TransactionType = 'IN' | 'OUT' | 'SHIFT';
-export type WorkShift = 'SHIFT_1' | 'SHIFT_2' | 'SHIFT_3' | 'ADMIN';
-export type ItemCondition = 'GOOD' | 'DAMAGED';
-
-export interface InventoryItem {
-  id: string;
-  name: string;
-  category: string;
   size: string;
-  expectedQty: number;
-  actualQty: number;
-  minStockThreshold: number;
-  dailyUsage: number;
-  unit: string;
-  location: string;
-  usageType: UsageType;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-  condition: 'GOOD' | 'DAMAGED' | 'EXPIRED';
-  lastUpdated: string;
-  updatedBy: string;
-  notes?: string;
-}
-
-export interface Transaction {
-  id: string;
-  itemId: string;
-  itemName: string;
-  type: TransactionType;
+  status: 'reusable' | 'disposable';
+  location: 'utama' | 'singles' | 'nugget' | 'lain' | 'repair';
   quantity: number;
-  workShift: WorkShift;
-  itemCondition: ItemCondition;
-  fromLocation?: string;
-  toLocation?: string;
-  date: string;
-  performedBy: string;
-  notes?: string;
+  unit: string;
+  price: number;
+  minStock: number;
+  lastUpdated: string;
+  description?: string;
+  sortOrder: number; // Menentukan urutan tampilan barang
+  usagePerShift?: number; // Konsumsi rata-rata per 1 shift (3 shift = 1 hari)
 }
 
-export interface SheetConfig {
-  scriptUrl: string;
-  isConnected: boolean;
-  autoSync: boolean;
-  pullLock?: boolean; // New: Lock to prevent cloud from overwriting local data
+export interface UsageConfig {
+  productId: string;
+  location: 'singles' | 'nugget';
+  usagePerShift: number; // Jumlah pemakaian rata-rata per 1 shift
+}
+
+export interface TransactionRecord {
+  id: string;
+  productId: string;
+  productName: string;
+  size: string;
+  type: 'IN' | 'OUT' | 'TRANSFER' | 'DISPOSE' | 'REPAIR_IN' | 'REPAIR_OUT';
+  amount: number;
+  sourceLocation: string;
+  targetLocation?: string;
+  timestamp: string;
+  note?: string; // Keterangan tambahan untuk transaksi
+  shift?: string; // Shift 1, 2, atau 3
+  status?: 'PENDING' | 'COMPLETED'; // Status khusus untuk workflow pemusnahan
+}
+
+export interface StockInsight {
+  status: 'critical' | 'warning' | 'optimal';
+  message: string;
+  recommendation: string;
+}
+
+export interface InventoryStats {
+  totalItems: number;
+  totalValue: number;
+  lowStockCount: number;
+  sizeDistribution: { name: string; value: number }[];
+}
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+  timestamp: number;
 }
